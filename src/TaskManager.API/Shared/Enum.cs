@@ -10,8 +10,7 @@ namespace TaskManager.API.Shared
         public enum StatusTarefa
         {
             Pendente = 0,
-            EmProgresso = 1,
-            Concluida = 2
+            Concluida = 1
         }
     }
 }

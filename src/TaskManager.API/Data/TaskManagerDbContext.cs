@@ -11,6 +11,6 @@ namespace TaskManager.API.Data
         public TaskManagerDbContext(DbContextOptions<TaskManagerDbContext> options) : base(options)
         {
         }
-
+        public DbSet<Models.Tarefa> Tarefas { get; set; }
     }
 }
