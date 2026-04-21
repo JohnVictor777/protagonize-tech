@@ -1,0 +1,28 @@
+<div style="padding: 20px;">
+  <h1>Tarefas</h1>
+  <button [routerLink]="['/criar']" style="margin-bottom: 10px;">+ Nova Tarefa</button>
+
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+<thead>
+  <tr>
+    <th>Título</th>
+    <th>Descrição</th>
+    <th>Status</th>
+    <th>Data</th>
+    <th>Ações</th>
+  </tr>
+</thead>
+    <tbody>
+<tr *ngFor="let t of tarefas">
+  <td>{{ t.titulo }}</td>      
+  <td>{{ t.descricao }}</td>   
+  <td>{{ getStatusTexto(t.status) }}</td>
+  <td>{{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
+  <td>
+    <button [routerLink]="['/editar', t.id]">Editar</button>
+    <button (click)="excluir(t.id)">Excluir</button>
+  </td>
+</tr>
+    </tbody>
+  </table>
+</div>

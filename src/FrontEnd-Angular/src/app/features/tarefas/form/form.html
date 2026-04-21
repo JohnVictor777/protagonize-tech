@@ -1,0 +1,19 @@
+<div style="padding: 20px;">
+  <h2>{{ id ? 'Editar' : 'Nova' }} Tarefa</h2>
+  <form (ngSubmit)="salvar()">
+    <input type="text" name="titulo" [(ngModel)]="tarefa.titulo" placeholder="Título" required>  
+  
+
+    <textarea name="descricao" [(ngModel)]="tarefa.descricao" placeholder="Descrição"></textarea>  
+  
+
+    <select name="status" [(ngModel)]="tarefa.status">
+      <option [ngValue]="0">Pendente</option>
+      <option [ngValue]="1">Concluída</option>
+    </select>  
+  
+
+    <button type="submit">Salvar</button>
+    <button type="button" [routerLink]="['/']">Cancelar</button>
+  </form>
+</div>
