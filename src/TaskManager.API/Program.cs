@@ -53,9 +53,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
     policy =>
     {
-        policy.WithOrigins("http://localhost:8080")
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseCors("MyPolicy");
 app.UseMiddleware<TaskManager.API.Shared.Middlewares.RequestLoggingMiddleware>();
 app.MapControllers();

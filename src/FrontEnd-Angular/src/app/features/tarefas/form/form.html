@@ -1,19 +1,52 @@
-<div style="padding: 20px;">
-  <h2>{{ id ? 'Editar' : 'Nova' }} Tarefa</h2>
+<div class="container">
   <form (ngSubmit)="salvar()">
-    <input type="text" name="titulo" [(ngModel)]="tarefa.titulo" placeholder="Título" required>  
-  
+    <h2>{{ id ? '✏️ Editar Tarefa' : '➕ Nova Tarefa' }}</h2>
+    
+    <!-- Mensagens de Sucesso/Erro -->
+    <div *ngIf="mensagem" [ngClass]="'alert alert-' + tipoMensagem">
+      {{ mensagem }}
+    </div>
 
-    <textarea name="descricao" [(ngModel)]="tarefa.descricao" placeholder="Descrição"></textarea>  
-  
+    <!-- Campo: Título -->
+    <div class="form-group">
+      <label for="titulo">Título *</label>
+      <input 
+        type="text" 
+        id="titulo"
+        name="titulo" 
+        [(ngModel)]="tarefa.titulo" 
+        placeholder="Digite o título da tarefa" 
+        [disabled]="carregando"
+        required>
+    </div>
 
-    <select name="status" [(ngModel)]="tarefa.status">
-      <option [ngValue]="0">Pendente</option>
-      <option [ngValue]="1">Concluída</option>
-    </select>  
-  
+    <!-- Campo: Descrição -->
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <textarea 
+        id="descricao"
+        name="descricao" 
+        [(ngModel)]="tarefa.descricao" 
+        [disabled]="carregando"
+        placeholder="Digite a descrição da tarefa"></textarea>
+    </div>
 
-    <button type="submit">Salvar</button>
-    <button type="button" [routerLink]="['/']">Cancelar</button>
+    <!-- Campo: Status -->
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" name="status" [(ngModel)]="tarefa.status" [disabled]="carregando">
+        <option [ngValue]="0">Pendente</option>
+        <option [ngValue]="1">Concluída</option>
+      </select>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="form-actions">
+      <button type="button" class="cancel" [routerLink]="['/']" [disabled]="carregando">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="carregando">
+        <span *ngIf="carregando" class="spinner"></span>
+        {{ carregando ? ' Salvando...' : 'Salvar' }}
+      </button>
+    </div>
   </form>
 </div>

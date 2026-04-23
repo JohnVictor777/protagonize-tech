@@ -1,28 +1,52 @@
-<div style="padding: 20px;">
-  <h1>Tarefas</h1>
-  <button [routerLink]="['/criar']" style="margin-bottom: 10px;">+ Nova Tarefa</button>
+<div class="container">
+  <!-- Cabeçalho da Página -->
+  <div class="page-header">
+    <h1>📋 Tarefas</h1>
+    <button class="btn-primary" [routerLink]="['/criar']">+ Nova Tarefa</button>
+  </div>
 
-  <table border="1" style="width: 100%; border-collapse: collapse;">
-<thead>
-  <tr>
-    <th>Título</th>
-    <th>Descrição</th>
-    <th>Status</th>
-    <th>Data</th>
-    <th>Ações</th>
-  </tr>
-</thead>
-    <tbody>
-<tr *ngFor="let t of tarefas">
-  <td>{{ t.titulo }}</td>      
-  <td>{{ t.descricao }}</td>   
-  <td>{{ getStatusTexto(t.status) }}</td>
-  <td>{{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
-  <td>
-    <button [routerLink]="['/editar', t.id]">Editar</button>
-    <button (click)="excluir(t.id)">Excluir</button>
-  </td>
-</tr>
-    </tbody>
-  </table>
+  <!-- Mensagens de Sucesso/Erro (opcional) -->
+  <div *ngIf="mensagem" [ngClass]="'alert alert-' + tipoMensagem">
+    {{ mensagem }}
+  </div>
+
+  <!-- Tabela de Tarefas -->
+  <div *ngIf="tarefas.length > 0; else semTarefas">
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Status</th>
+          <th>Data de Criação</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of tarefas">
+          <td><strong>{{ t.titulo }}</strong></td>
+          <td>{{ t.descricao }}</td>
+          <td>
+            <span [ngClass]="'status-badge status-' + (getStatusTexto(t.status) === 'Concluída' ? 'concluida' : 'pendente')">
+              {{ getStatusTexto(t.status) }}
+            </span>
+          </td>
+          <td>{{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="edit" [routerLink]="['/editar', t.id]">✏️ Editar</button>
+              <button class="delete" (click)="excluir(t.id)">🗑️ Excluir</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mensagem quando não há tarefas -->
+  <ng-template #semTarefas>
+    <div class="alert alert-info">
+      <strong>Nenhuma tarefa encontrada.</strong> Clique no botão "Nova Tarefa" para criar uma!
+    </div>
+  </ng-template>
 </div>

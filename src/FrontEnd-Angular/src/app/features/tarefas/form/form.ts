@@ -16,6 +16,9 @@ import { Observable } from 'rxjs';
 export class FormComponent implements OnInit {
   tarefa: TarefaRequest = { titulo: '', descricao: '', status: StatusTarefa.Pendente };
   id: string | null = null;
+  mensagem: string = '';
+  tipoMensagem: 'success' | 'error' = 'success';
+  carregando: boolean = false;
 
   constructor(
     private service: TarefaService,
@@ -33,15 +36,27 @@ export class FormComponent implements OnInit {
   }
 
 salvar(): void {
+  if (!this.tarefa.titulo) {
+    this.mensagem = 'O título é obrigatório.';
+    this.tipoMensagem = 'error';
+    return;
+  }
+
+  this.carregando = true;
   const acao = this.id 
     ? this.service.update(this.id, this.tarefa) 
     : this.service.create(this.tarefa);
 
   (acao as Observable<any>).subscribe({
     next: () => {
-      this.router.navigate(['/']);
+      this.mensagem = 'Tarefa salva com sucesso!';
+      this.tipoMensagem = 'success';
+      setTimeout(() => this.router.navigate(['/']), 1500);
     },
     error: (err: any) => { 
+      this.carregando = false;
+      this.mensagem = 'Erro ao salvar tarefa. Verifique a conexão com a API.';
+      this.tipoMensagem = 'error';
       console.error('Erro:', err);
     }
   });

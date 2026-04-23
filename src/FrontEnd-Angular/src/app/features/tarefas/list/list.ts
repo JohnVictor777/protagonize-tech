@@ -15,6 +15,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   tarefas: Tarefa[] = [];
+  mensagem: string = '';
+  tipoMensagem: 'success' | 'error' | 'info' = 'info';
 
   constructor(
   private tarefaService: TarefaService,
@@ -42,12 +44,17 @@ carregar(): void {
 }
 
 excluir(id: string): void {
-  if (confirm('Deseja excluir?')) {
+  if (confirm('Deseja excluir esta tarefa?')) {
     (this.tarefaService.delete(id) as Observable<any>).subscribe({
       next: () => {
+        this.mensagem = 'Tarefa excluída com sucesso!';
+        this.tipoMensagem = 'success';
         this.carregar();
+        setTimeout(() => this.mensagem = '', 3000);
       },
       error: (err: any) => {
+        this.mensagem = 'Erro ao excluir tarefa.';
+        this.tipoMensagem = 'error';
         console.error('Erro:', err);
       }
     });
