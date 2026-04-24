@@ -44,6 +44,17 @@ A aplicação gerencia a entidade `Tarefa` com os seguintes campos:
 *   **Consumo de API**: Integração completa via `HttpClient`.
 *   **Feedback ao Usuário**: Mensagens de sucesso/erro e confirmações de exclusão.
 
+## Demonstração da Aplicação
+
+###  Front-end (Angular)
+![Front-end](../src/assets/front-end.png)
+
+###  Back-end (Swagger)
+![Swagger](../src/assets/backend.png)
+
+###  Banco de Dados (SQL Server)
+![Banco de Dados](../src/assets/database.png)
+
 ## Pré-requisitos
 
 *   [.NET SDK 8.0+](https://dotnet.microsoft.com/download/dotnet/8.0)
