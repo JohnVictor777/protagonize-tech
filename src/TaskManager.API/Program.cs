@@ -1,4 +1,5 @@
 using System.Data;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
@@ -66,6 +67,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #endregion
+
 
 var app = builder.Build();
 
