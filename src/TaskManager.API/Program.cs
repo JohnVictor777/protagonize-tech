@@ -80,6 +80,7 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 app.UseCors("MyPolicy");
 app.UseMiddleware<TaskManager.API.Shared.Middlewares.RequestLoggingMiddleware>();
+app.UseMiddleware<TaskManager.API.Shared.Middlewares.ErrorHandlingMiddleware>();
 app.MapControllers();
 app.MapGet("/health", () => new { status = "OK" });
 

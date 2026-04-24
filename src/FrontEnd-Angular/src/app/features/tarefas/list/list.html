@@ -5,7 +5,6 @@
     <button class="btn-primary" [routerLink]="['/criar']">+ Nova Tarefa</button>
   </div>
 
-  <!-- Mensagens de Sucesso/Erro (opcional) -->
   <div *ngIf="mensagem" [ngClass]="'alert alert-' + tipoMensagem">
     {{ mensagem }}
   </div>
